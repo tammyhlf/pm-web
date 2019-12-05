@@ -100,16 +100,9 @@ export default {
           routes: [
             {
               path: '/',
-              component: './Index',
+              // component: './Index',
               redirect: '/index',
-              meta: { title: '首页' },
-              children: [
-                ...assetOverview,
-                ...assets,
-                ...bookKeeping,
-                ...debet,
-                ...saveMoney
-              ]
+              // meta: { title: '首页' },
             },
             {
               path: '/admin',
@@ -118,6 +111,11 @@ export default {
               component: './Admin',
               authority: ['admin']
             },
+            ...assetOverview,
+            ...bookKeeping,
+            ...assets,
+            ...debet,
+            ...saveMoney,
             {
               component: './404',
             },
