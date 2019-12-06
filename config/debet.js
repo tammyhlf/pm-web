@@ -3,7 +3,7 @@ export const debet = [
     path: '/debet',
     name: 'debet',
     icon: 'meh',
-    children: [
+    routes: [
       {
         path: '/debet/ant-credit-pay',
         name: 'ant-credit-pay',

@@ -3,7 +3,7 @@ export const assets = [
     path: '/assets',
     name: 'assets',
     icon: 'crown',
-    children: [
+    routes: [
       {
         path: '/assets/cash',
         name: 'cash',
