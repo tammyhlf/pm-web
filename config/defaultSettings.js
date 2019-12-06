@@ -11,7 +11,7 @@ export default {
   menu: {
     locale: true,
   },
-  title: 'Ant Design Pro',
+  title: '个人财务管理系统',
   pwa: false,
   iconfontUrl: '',
 };

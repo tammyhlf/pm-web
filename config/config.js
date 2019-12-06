@@ -1,10 +1,10 @@
 import defaultSettings from './defaultSettings'; // https://umijs.org/config/
-import { assetOverview } from './assetOverview'
-import { assets } from './assets.js'
-import { bookKeeping } from './bookKeeping.js'
-import { debet } from './debet.js'
-import { saveMoney } from './saveMoney.js'
 
+import { assetOverview } from './assetOverview';
+import { assets } from './assets.js';
+import { bookKeeping } from './bookKeeping.js';
+import { debet } from './debet.js';
+import { saveMoney } from './saveMoney.js';
 import slash from 'slash2';
 import themePluginConfig from './themePluginConfig';
 const { pwa } = defaultSettings; // preview.pro.ant.design only do not use in your production ;
@@ -101,21 +101,26 @@ export default {
             {
               path: '/',
               // component: './Index',
-              redirect: '/index',
-              // meta: { title: '首页' },
+              redirect: '/index', // meta: { title: '首页' },
             },
             {
               path: '/admin',
               name: 'admin',
               icon: 'crown',
               component: './Admin',
-              authority: ['admin']
+              authority: ['admin'],
             },
             ...assetOverview,
             ...bookKeeping,
             ...assets,
             ...debet,
             ...saveMoney,
+            {
+              name: '空白页面',
+              icon: 'smile',
+              path: '/chart',
+              component: './chart',
+            },
             {
               component: './404',
             },
