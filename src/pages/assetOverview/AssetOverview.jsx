@@ -1,9 +1,31 @@
 import React from 'react';
-import { Card, Statistic, Row, Col, Divider, Tabs, Icon, DatePicker } from 'antd';
+import { Card, Statistic, Row, Col, Divider, Tabs, Icon, DatePicker, Table } from 'antd';
 import styles from './asset.less';
 
 const { TabPane } = Tabs;
 const { MonthPicker } = DatePicker;
+const { Column } = Table;
+const columns = [
+  {
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age',
+  },
+  {
+    title: 'Address',
+    dataIndex: 'address',
+    key: 'address',
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (text, record) => (
+      <span>
+        <a>Delete</a>
+      </span>
+    ),
+  },
+];
 
 export default () => (
   <div>
@@ -38,7 +60,7 @@ export default () => (
         </Col>
       </Row>
     </Card>
-    <Tabs defaultActiveKey="2">
+    <Tabs defaultActiveKey="1">
       <TabPane
         tab={
           <span>
@@ -48,7 +70,8 @@ export default () => (
         }
         key="1"
       >
-        <MonthPicker placeholder="请选择月份" />
+        <MonthPicker placeholder="请选择月份" className={styles.months} />
+        <Table columns={columns} dataSource={data} />
       </TabPane>
       <TabPane
         tab={
