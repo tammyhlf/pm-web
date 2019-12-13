@@ -116,12 +116,6 @@ export default {
             ...debet,
             ...saveMoney,
             {
-              name: '空白页面',
-              icon: 'smile',
-              path: '/chart',
-              component: './chart',
-            },
-            {
               component: './404',
             },
           ],
