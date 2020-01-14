@@ -8,4 +8,5 @@ export default {
   'asset.assetOverview.bill': '流水账',
   'asset.assetOverview.month-selection': '请选择月份',
   'asset.assetOverview.chart': '图表分析',
+  'asset.assetOverview.delete': '删除',
 };

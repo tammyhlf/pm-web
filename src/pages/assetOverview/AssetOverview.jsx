@@ -1,27 +1,50 @@
 import React from 'react';
 import { Card, Statistic, Row, Col, Divider, Tabs, Icon, DatePicker, Table } from 'antd';
 import { formatMessage, FormattedMessage } from 'umi/locale';
-
+import PieChart from '../../components/PieChart'
 import styles from './asset.less';
 
 const { TabPane } = Tabs;
 const { MonthPicker } = DatePicker;
 const columns = [
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
+    title: '类型',
+    dataIndex: 'type',
+    key: 'type',
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address',
+    title: '金额',
+    dataIndex: 'price',
+    key: 'price',
   },
   {
-    title: 'Action',
+    title: '备注',
+    dataIndex: 'remark',
+    key: 'remark',
+  },
+  {
+    title: '日期',
+    dataIndex: 'date',
+    key: 'date',
+  },
+  {
+    title: '操作',
     key: 'action',
+    render: text => {
+      <span>
+        <a href=""><FormattedMessage id="asset.assetOverview.delete" /></a>
+      </span>
+    }
   },
 ];
+const pieDate = [
+  { value: 335, name: '餐饮' },
+  { value: 310, name: '服饰' },
+  { value: 234, name: '水果' },
+  { value: 135, name: '交通' },
+  { value: 1548, name: '娱乐' },
+  { value: 122, name: '其他' }
+]
 
 export default () => (
   <div>
@@ -38,20 +61,36 @@ export default () => (
     <Card>
       <Row gutter={16}>
         <Col span={12}>
-        <p><strong><FormattedMessage id="asset.assetOverview.cash" /></strong></p>
+        <p>
+          <strong>
+            <FormattedMessage id="asset.assetOverview.cash" />
+          </strong>
+        </p>
           <Statistic value={112893} precision={2} />
         </Col>
         <Col span={6}>
-          <Statistic title={formatMessage({ id: 'asset.assetOverview.month-expenditure' })} value={112893} precision={2} />
+          <Statistic 
+            title={formatMessage({ id: 'asset.assetOverview.month-expenditure' })} 
+            value={112893} 
+            precision={2}
+          />
         </Col>
         <Col span={6}>
-          <Statistic title={formatMessage({ id: 'asset.assetOverview.month-revenue' })} value={112893} precision={2} />
+          <Statistic
+            title={formatMessage({ id: 'asset.assetOverview.month-revenue' })}
+            value={112893}
+            precision={2} 
+          />
         </Col>
       </Row>
       <Divider dashed />
       <Row gutter={16}>
         <Col span={12}>
-          <p><strong>{formatMessage({ id: 'asset.assetOverview.deposit' })}</strong></p>
+          <p>
+            <strong>
+              {formatMessage({ id: 'asset.assetOverview.deposit' })}
+            </strong>
+          </p>
           <Statistic value={112893} precision={2} />
         </Col>
       </Row>
@@ -78,7 +117,7 @@ export default () => (
         }
         key="2"
       >
-        Tab 2
+        <PieChart data={pieDate} />
       </TabPane>
     </Tabs>
   </div>

@@ -8,4 +8,5 @@ export default {
   'asset.assetOverview.bill': 'Bill',
   'asset.assetOverview.month-selection': 'Month Selection',
   'asset.assetOverview.chart': 'Chart',
+  'asset.assetOverview.delete': 'Delete',
 };
