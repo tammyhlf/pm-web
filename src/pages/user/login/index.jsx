@@ -1,4 +1,4 @@
-import { Alert, Checkbox, Icon } from 'antd';
+import { Alert, Checkbox } from 'antd';
 import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
 import React, { Component } from 'react';
 import Link from 'umi/link';
@@ -112,7 +112,7 @@ class Login extends Component {
               name="userName"
               placeholder={`${formatMessage({
                 id: 'user-login.login.userName',
-              })}: admin or user`}
+              })}`}
               rules={[
                 {
                   required: true,
@@ -126,7 +126,7 @@ class Login extends Component {
               name="password"
               placeholder={`${formatMessage({
                 id: 'user-login.login.password',
-              })}: ant.design`}
+              })}`}
               rules={[
                 {
                   required: true,
@@ -218,10 +218,6 @@ class Login extends Component {
             <FormattedMessage id="user-login.login.login" />
           </Submit>
           <div className={styles.other}>
-            <FormattedMessage id="user-login.login.sign-in-with" />
-            <Icon type="alipay-circle" className={styles.icon} theme="outlined" />
-            <Icon type="taobao-circle" className={styles.icon} theme="outlined" />
-            <Icon type="weibo-circle" className={styles.icon} theme="outlined" />
             <Link className={styles.register} to="/user/register">
               <FormattedMessage id="user-login.login.signup" />
             </Link>
