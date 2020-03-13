@@ -5,7 +5,7 @@ export default {
     'Invalid username or password（admin/ant.design）',
   'user-login.login.message-invalid-verification-code': 'Invalid verification code',
   'user-login.login.tab-login-credentials': 'Credentials',
-  'user-login.login.tab-login-mobile': 'Mobile number',
+  'user-login.login.tab-login-mobile': 'Verification code',
   'user-login.login.remember-me': 'Remember me',
   'user-login.login.forgot-password': 'Forgot your password?',
   'user-login.login.sign-in-with': 'Sign in with',

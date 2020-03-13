@@ -5,8 +5,16 @@ import { connect } from 'dva';
 import router from 'umi/router';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
+import { info } from '../../services/user'
 
 class AvatarDropdown extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {}
+    };
+  }
+
   onMenuClick = event => {
     const { key } = event;
 
@@ -24,15 +32,29 @@ class AvatarDropdown extends React.Component {
 
     router.push(`/account/${key}`);
   };
+  componentDidMount() {
+    info().then(res => {
+      if (res.status === 401) {
+        localStorage.removeItem('token')
+        localStorage.removeItem('userId')
+      } else {
+        const name = res.data.name
+        const avatar = res.data.avatar
+        this.setState({ user: { name, avatar } })
+      }
+    })
+  }
 
   render() {
     const {
-      currentUser = {
-        avatar: '',
-        name: '',
-      },
+      // currentUser = {
+      //   avatar: '',
+      //   name: '',
+      // },
       menu,
     } = this.props;
+    const { name } = this.state.user
+    const { avatar } = this.state.user
     const menuHeaderDropdown = (
       <Menu className={styles.menu} selectedKeys={[]} onClick={this.onMenuClick}>
         {menu && (
@@ -55,22 +77,22 @@ class AvatarDropdown extends React.Component {
         </Menu.Item>
       </Menu>
     );
-    return currentUser && currentUser.name ? (
+    return name ? (
       <HeaderDropdown overlay={menuHeaderDropdown}>
         <span className={`${styles.action} ${styles.account}`}>
-          <Avatar size="small" className={styles.avatar} src={currentUser.avatar} alt="avatar" />
-          <span className={styles.name}>{currentUser.name}</span>
+          <Avatar size="small" className={styles.avatar} src={avatar || 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'} alt="avatar" />
+          <span className={styles.name}>{name}</span>
         </span>
       </HeaderDropdown>
     ) : (
-      <Spin
-        size="small"
-        style={{
-          marginLeft: 8,
-          marginRight: 8,
-        }}
-      />
-    );
+        <Spin
+          size="small"
+          style={{
+            marginLeft: 8,
+            marginRight: 8,
+          }}
+        />
+      );
   }
 }
 

@@ -4,7 +4,7 @@ import { assetOverview } from './assetOverview';
 import { assets } from './assets.js';
 import { bookKeeping } from './bookKeeping.js';
 import { debet } from './debet.js';
-import { saveMoney } from './saveMoney.js';
+import { saveMoney, save } from './saveMoney.js';
 import slash from 'slash2';
 import themePluginConfig from './themePluginConfig';
 const { pwa } = defaultSettings; // preview.pro.ant.design only do not use in your production ;
@@ -117,9 +117,10 @@ export default {
             },
             ...assetOverview,
             ...bookKeeping,
+            ...saveMoney,
             ...assets,
             ...debet,
-            ...saveMoney,
+            ...save,
             {
               component: './404',
             },

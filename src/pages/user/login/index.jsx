@@ -6,7 +6,7 @@ import { connect } from 'dva';
 import LoginComponents from './components/Login';
 import styles from './style.less';
 
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = LoginComponents;
+const { Tab, Password, Mobile, Captcha, Submit } = LoginComponents;
 
 @connect(({ login, loading }) => ({
   userLogin: login,
@@ -37,6 +37,20 @@ class Login extends Component {
       });
     }
   };
+  // handleSubmit = e => {
+  //   e.preventDefault()
+  //   this.props.form.validateFields((err, values) => {
+	// 		if (!err) {
+	// 			const encryptPassword = passwordEncrypted(values.phone, values.password)
+	// 			userLogin({ 
+	// 				phone: values.phone,
+	// 				password: encryptPassword
+	// 			}).then( res => {
+	// 				message.success(res.msg, 2);
+	// 			} )
+	// 		}
+	// 	})
+  // };
 
   onTabChange = type => {
     this.setState({
@@ -89,7 +103,7 @@ class Login extends Component {
         <LoginComponents
           defaultActiveKey={type}
           onTabChange={this.onTabChange}
-          onSubmit={this.handleSubmit}
+          // onSubmit={this.handleSubmit}
           onCreate={form => {
             this.loginForm = form;
           }}
@@ -108,16 +122,22 @@ class Login extends Component {
                   id: 'user-login.login.message-invalid-credentials',
                 }),
               )}
-            <UserName
-              name="userName"
-              placeholder={`${formatMessage({
-                id: 'user-login.login.userName',
-              })}`}
+            <Mobile
+              name="mobile"
+              placeholder={formatMessage({
+                id: 'user-login.phone-number.placeholder',
+              })}
               rules={[
                 {
                   required: true,
                   message: formatMessage({
-                    id: 'user-login.userName.required',
+                    id: 'user-login.phone-number.required',
+                  }),
+                },
+                {
+                  pattern: /^1\d{10}$/,
+                  message: formatMessage({
+                    id: 'user-login.phone-number.wrong-format',
                   }),
                 },
               ]}
@@ -135,13 +155,13 @@ class Login extends Component {
                   }),
                 },
               ]}
-              onPressEnter={e => {
-                e.preventDefault();
+              // onPressEnter={e => {
+              //   e.preventDefault();
 
-                if (this.loginForm) {
-                  this.loginForm.validateFields(this.handleSubmit);
-                }
-              }}
+              //   if (this.loginForm) {
+              //     this.loginForm.validateFields(this.handleSubmit);
+              //   }
+              // }}
             />
           </Tab>
           <Tab
@@ -209,7 +229,7 @@ class Login extends Component {
               style={{
                 float: 'right',
               }}
-              href=""
+              href="https://dvajs.com"
             >
               <FormattedMessage id="user-login.login.forgot-password" />
             </a>

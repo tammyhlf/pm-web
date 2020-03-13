@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Tabs, Icon, Row, Col, Modal, Form, Input } from 'antd';
 import style from './bookKeeping.less';
+import { book } from '../../services/book'
 
 const { TabPane } = Tabs;
 const payIcon = [     // react中的src是相对于根目录，/在react里是相对于public目录，图片存于pulic下
@@ -133,8 +134,16 @@ class BookKeepingForm extends Component {
     super(props);
     this.state = {
       visible: false,
-      type: ''
+      type: '',
+      kinds: '支出'
     };
+  }
+
+  handleTab = (key) => {
+    const kinds = key == 1 ? '支出' : '收入'
+    this.setState({
+      kinds
+    })
   }
 
   handleClick = (type, id) => {
@@ -156,6 +165,16 @@ class BookKeepingForm extends Component {
     this.setState({
       visible: false,
     });
+
+    this.props.form.validateFields((err, values) => {
+      const userId = localStorage.getItem('userId')
+      if(!err) {
+        const params = Object.assign({}, values, { userId, kinds: this.state.kinds, type: this.state.type })
+        book(params).then( res => {
+          console.log(res)
+        })
+      }
+    })
   };
 
   handleCancel = () => {
@@ -169,6 +188,7 @@ class BookKeepingForm extends Component {
 
   render() {
     const { getFieldDecorator } = this.props.form;
+
     const payItem = payIcon.map(item =>     // 别在后面加{}。。。
       <Col
         xs = {{ span: 6, offset: 2 }}
@@ -180,6 +200,7 @@ class BookKeepingForm extends Component {
         <p className = { style.title }>{ item.kind }</p>
       </Col>
     );
+    
     const incomeItem = incomeIcon.map(item =>     // 别在后面加{}。。。
       <Col
         xs = {{ span: 6, offset: 2 }}
@@ -204,7 +225,7 @@ class BookKeepingForm extends Component {
     return (
       <PageHeaderWrapper>
         <div>
-          <Tabs defaultActiveKey="1" size="large">
+          <Tabs defaultActiveKey="1" size="large" onChange={ this.handleTab }>
             <TabPane
               tab={
                 <span>
@@ -236,7 +257,7 @@ class BookKeepingForm extends Component {
           onCancel = { this.handleCancel}
           width={400}
         >
-          <Form {...formItemLayout} onSubmit = { this.handleSearch }>
+          <Form {...formItemLayout}>
             <Form.Item label="类型：">
               <span>{ this.state.type }</span>
             </Form.Item>
@@ -248,10 +269,6 @@ class BookKeepingForm extends Component {
                     type: 'number',
                     message: '金额必填且为数字',
                     transform:(value)=> {return Number(value)} //ant design的坑，会把输入的内容转换成String
-                  },
-                  {
-                    
-                    message: '请输入金额',
                   },
                 ],
               })(<Input placeholder="请输入金额"/>)}

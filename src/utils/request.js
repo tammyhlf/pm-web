@@ -4,6 +4,13 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+// import axios from 'axios'
+
+// 创建axios实例
+// const request = axios.create({
+//   baseUrl: 'http://127.0.0.1:8001',
+//   timeout: 600000
+// })
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -25,6 +32,8 @@ const codeMessage = {
 /**
  * 异常处理程序
  */
+
+export const api = 'http://127.0.0.1:8001'
 
 const errorHandler = error => {
   const { response } = error;
@@ -54,4 +63,20 @@ const request = extend({
   // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
 });
+
+// 添加request拦截器，在header加上token
+request.interceptors.request.use((url, options) => {
+  const token = localStorage.getItem("token");
+  const headers = {
+    'Content-Type': "application/json",
+    'Accept': "application",
+    'Authorization': "Bearer " + token,
+    token
+  }
+  return ({
+    url,
+    options: url.indexOf('sign') === -1 ? { ...options, headers } : options
+  })
+})
+
 export default request;

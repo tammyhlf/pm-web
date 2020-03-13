@@ -11,6 +11,7 @@ export default {
   'menu.debet.credit-card': 'Credit Card',
   'menu.debet.other': 'Other',
   'menu.save-money': 'Save Money',
+  'menu.save': 'Save',
   'menu.more-blocks': 'More Blocks',
   'menu.home': 'Home',
   'menu.admin': 'admin',

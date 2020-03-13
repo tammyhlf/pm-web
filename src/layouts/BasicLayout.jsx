@@ -12,7 +12,7 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import Authorized from '@/utils/Authorized';
 import RightContent from '@/components/GlobalHeader/RightContent';
 import { getAuthorityFromRouter } from '@/utils/utils';
-import logo from '../assets/logos.png';
+import logo from '../assets/logo.png';
 
 const noMatch = (
   <Result
@@ -74,13 +74,14 @@ const BasicLayout = props => {
   };
   return (
     <ProLayout
+      contentStyle={{ margin: '24px 10px 0 10px'  }}
       logo={logo}
-      menuHeaderRender={(logoDom, titleDom) => (
-        <Link to="/">
-          {logoDom}
-          {titleDom}
-        </Link>
-      )}
+      // menuHeaderRender={(logoDom, titleDom) => (
+      //   <Link to="/">
+      //     {logoDom}
+      //     {titleDom}
+      //   </Link>
+      // )}
       onCollapse={handleMenuCollapse}
       menuItemRender={(menuItemProps, defaultDom) => {
         if (menuItemProps.isUrl || menuItemProps.children) {

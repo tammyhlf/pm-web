@@ -1,4 +1,4 @@
-import { Form, Tabs } from 'antd';
+import { Form, Tabs, message } from 'antd';
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import LoginContext from './LoginContext';
@@ -6,6 +6,9 @@ import LoginItem from './LoginItem';
 import LoginSubmit from './LoginSubmit';
 import LoginTab from './LoginTab';
 import styles from './index.less';
+import router from 'umi/router';
+import { userLogin } from '../../../../../services/login'
+import passwordEncrypted from '../../../../../utils/passwordEncrypted';
 
 class Login extends Component {
   static Tab = LoginTab;
@@ -97,8 +100,21 @@ class Login extends Component {
           force: true,
         },
         (err, values) => {
-          if (onSubmit) {
-            onSubmit(err, values);
+          if (!err) {
+            const encryptPassword = passwordEncrypted(values.mobile, values.password)
+            userLogin({ 
+              phone: values.mobile,
+              password: encryptPassword
+            }).then( res => {
+              if(!res.code) {
+                message.success(res.msg, 2);
+                localStorage.setItem('token', res.data.token)
+                localStorage.setItem('userId', res.data.id)
+                router.push('/asset-overview')
+              } else {
+                message.error(res.msg, 2);
+              }
+            } )
           }
         },
       );
@@ -114,7 +130,6 @@ class Login extends Component {
       if (!child) {
         return;
       }
-
       if (child.type.typeName === 'LoginTab') {
         TabChildren.push(child);
       } else {
