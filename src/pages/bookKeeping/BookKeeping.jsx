@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Tabs, Icon, Row, Col, Modal, Form, Input } from 'antd';
+import { Tabs, Icon, Row, Col, Modal, Form, Input, message } from 'antd';
 import style from './bookKeeping.less';
 import { book } from '../../services/book'
 
@@ -171,9 +171,10 @@ class BookKeepingForm extends Component {
       if(!err) {
         const params = Object.assign({}, values, { userId, kinds: this.state.kinds, type: this.state.type })
         book(params).then( res => {
-          console.log(res)
+          message.success(res.msg, 2);
         })
       }
+      this.props.form.resetFields()
     })
   };
 

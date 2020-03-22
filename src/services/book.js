@@ -13,3 +13,10 @@ export async function bookInfo(params) {
     params: params,
   });
 }
+
+export async function deleteInfo(params) {
+  return request(api + '/book/delete', {
+    method: 'POST',
+    data: params,
+  });
+}
