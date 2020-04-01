@@ -33,7 +33,7 @@ const codeMessage = {
  * 异常处理程序
  */
 
-export const api = 'http://127.0.0.1:8001'
+export const api = 'http://127.0.0.1:8028'
 
 const errorHandler = error => {
   const { response } = error;

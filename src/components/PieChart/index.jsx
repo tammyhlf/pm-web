@@ -3,6 +3,7 @@ import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/pie';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
+import { Row, Col } from 'antd';
 
 export default class PieChart extends Component {
   initChart = () => {
@@ -72,10 +73,20 @@ export default class PieChart extends Component {
   }
   render() {
     return (
-      <div>
-        <div id="pay" style={{ width:'50%', height:311, display:'inline-block' }}></div>
-        <div id="income" style={{ width:'50%', height:311, display:'inline-block' }}></div>
-      </div>
+      <Row>
+        <Col
+          xs = {{ span: 20}}
+          lg = {{ span: 10}}
+        >
+          <span id="pay" style={{ width:416, height:311, display:'inline-block' }}></span>
+        </Col>
+        <Col
+          xs = {{ span: 20}}
+          lg = {{ span: 10, offset: 4}}
+        >
+          <span id="income" style={{ width:416, height:311, display:'inline-block' }}></span>
+        </Col>
+      </Row>
     )
   }
 }

@@ -7,6 +7,7 @@ export default {
   'menu.assets.monetary-assets': '金融资产',
   'menu.assets.fixed-assets': '固定资产',
   'menu.debet': '债务',
+  'menu.chat': '聊天',
   'menu.debet.ant-credit-pay': '花呗 ',
   'menu.debet.credit-card': '信用卡',
   'menu.debet.other': '其他',

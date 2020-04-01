@@ -121,6 +121,12 @@ export default {
             ...assets,
             ...debet,
             ...save,
+            // {
+            //   path: '/chat',
+            //   name: 'chat',
+            //   hideInMenu: true,
+            //   component: './chat/Chat'
+            // },
             {
               component: './404',
             },

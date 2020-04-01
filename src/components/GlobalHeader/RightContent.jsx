@@ -5,6 +5,7 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import Avatar from './AvatarDropdown';
 import SelectLang from '../SelectLang';
 import styles from './index.less';
+import router from 'umi/router';
 
 const GlobalHeaderRight = props => {
   const { theme, layout } = props;

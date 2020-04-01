@@ -5,6 +5,10 @@ import PieChart from '../../components/PieChart'
 import styles from './asset.less';
 import { overview } from '../../services/overview'
 import { bookInfo, deleteInfo } from '../../services/book'
+import { totalAssets } from '../../services/assets'
+import { totalDebet } from '../../services/debet'
+
+
 // import { overview } from '@/services/overview';
 
 const { TabPane } = Tabs;
@@ -15,69 +19,74 @@ function formatsDate (date) {
   return date.slice(0, 10);
 }
 
-function formatsMonth (date) {
-  return date.slice(0, 7);
-}
-
 
 class AssetOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
       date: new Date(),
-      billData: [],
       columnData: [],
       yesPay: '',
       payData: [],
-      incomeData: []
+      incomeData: [],
+      total: 0,
+      pay: 0,
+      income: 0,
+      cash: 0,
+      debet: 0
     };
   }
   componentDidMount() {
     bookInfo({ userId : localStorage.getItem('userId') }).then(res=>{
-      if(!res.code) {
-        const payData = []
-        const incomeData = [{ value: 0 , name: ' ' }]
-        const pay = res.data.filter(item => {
-          return item.kinds == "支出"
-        })
-        pay.map( items => {
-          payData.push({ value: items.price, name: items.type })
-        } )
-
-        const income = res.data.filter(item => {
-          return item.kinds == "收入"
-        })
-        income.map( items => {
-          incomeData.push({ value: items.price, name: items.type })
-        } )
-
+      if (!res.code) {
         this.setState({
-          billData: res.data,
-          columnData: res.data,
-          payData,
-          incomeData
+          columnData: res.data[0],
+          payData: res.data[1],
+          incomeData: res.data[2]
         })
       }
     })
     overview({ userId : localStorage.getItem('userId') }).then(res=>{
       if(!res.code) {
         this.setState({
-          yesPay: res.data.yesPay
+          yesPay: res.data[0].yesPay,
+          pay: res.data[1].pay,
+          income: res.data[2].income
+        })
+      }
+    })
+    totalAssets({ id : localStorage.getItem('userId') }).then(res=>{
+      if (!res.code) {
+        let total = 0;
+        res.data.map(item => {
+          total += item.cash * 1
+        })
+        this.setState({
+          total,
+          cash: res.data[0].cash
+        })
+      }
+    })
+    totalDebet({ id : localStorage.getItem('userId') }).then(res=>{
+      if (!res.code) {
+        let total = 0;
+        res.data.map(item => {
+          total += item.ant * 1
+        })
+        this.setState({
+          debet: total
         })
       }
     })
   }
 
   onChange = (date, dateString) => {
-    const billDatas = this.state.billData;
-    let columnDatas = []
-    billDatas.map(item => {
-      if(formatsMonth(item.date) == dateString) {
-        columnDatas.push(item)
-      }
-    })
-    this.setState({
-      columnData: columnDatas
+    bookInfo({ userId : localStorage.getItem('userId'), time: dateString.slice(0,7) }).then(res=>{
+      this.setState({
+        columnData: res.data[0],
+        payData: res.data[1],
+        incomeData: res.data[2]
+      })
     })
   }
 
@@ -137,7 +146,7 @@ class AssetOverview extends React.Component {
           <Statistic title={formatMessage({ id: 'asset.assetOverview.yesterday-expenditure' })} value={112893} precision={2} /> */}
           <div className={styles.total}>
             <span>总资产</span>
-            <strong>90.00</strong>
+            <strong>{this.state.total}</strong>
           </div>
           <div className={styles.output}>
             <span>今日支出</span>
@@ -152,7 +161,7 @@ class AssetOverview extends React.Component {
                   <FormattedMessage id="asset.assetOverview.cash" />
                 </strong>
               </p>
-              <Statistic value={113} precision={2} />
+              <Statistic value={this.state.cash || 0} precision={2} />
             </Col>
             <Col span={6}>
               <Statistic
@@ -177,7 +186,8 @@ class AssetOverview extends React.Component {
                   {formatMessage({ id: 'asset.assetOverview.deposit' })}
                 </strong>
               </p>
-              <Statistic value={93} precision={2} />
+              {/* 总债务 */}
+              <Statistic value={this.state.debet || 0} precision={2} />
             </Col>
           </Row>
         </Card>

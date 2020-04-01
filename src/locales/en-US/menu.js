@@ -12,6 +12,7 @@ export default {
   'menu.debet.other': 'Other',
   'menu.save-money': 'Save Money',
   'menu.save': 'Save',
+  'menu.chat': 'Chat',
   'menu.more-blocks': 'More Blocks',
   'menu.home': 'Home',
   'menu.admin': 'admin',
