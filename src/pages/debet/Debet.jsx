@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './debet.less';
+import { formatMessage, FormattedMessage } from 'umi/locale';
 import { Icon, Table, message, Modal, Form, Input, Select, Statistic, Row, Col } from 'antd';
 import { addDebet, totalDebet, debetInfo, deleteInfo } from '../../services/debet'
 
@@ -141,9 +142,9 @@ class Debets extends React.Component {
   render() {
 
     const tabs = [
-      { index: 0, name: '花呗', icon: 'shopping' },
-      { index: 1, name: '信用卡', icon: 'wallet' },
-      { index: 2, name: '其他', icon: 'sketch' }
+      { index: 0, name: formatMessage({ id: 'asset.assetOverview.ant' }), icon: 'shopping' },
+      { index: 1, name: formatMessage({ id: 'asset.assetOverview.card' }), icon: 'wallet' },
+      { index: 2, name: formatMessage({ id: 'asset.assetOverview.debet' }), icon: 'sketch' }
     ];
 
     const cardColumns = [
@@ -237,11 +238,11 @@ class Debets extends React.Component {
       <div>
         <div className={styles.page}>
           <div className={styles.total}>
-            <span>总债务</span>
+            <span><FormattedMessage id="asset.assetOverview.alld" /></span>
             <strong>{this.state.total}</strong>
           </div>
           <div className={styles.output}>
-            <span>本月应还</span>
+            <span><FormattedMessage id="asset.assetOverview.month" /></span>
             <strong>{this.state.repay}</strong>
           </div>
         </div>
@@ -253,14 +254,14 @@ class Debets extends React.Component {
             <Row>
               <Col span={8} offset={4}>
                 <Statistic
-                  title="应还："
+                  title={formatMessage({ id: 'asset.assetOverview.should' })}
                   value={this.state.ant}
                   precision={2}
                 />
               </Col>
               <Col span={8} offset={4}>
                 <Statistic
-                  title="每月最低："
+                  title={formatMessage({ id: 'asset.assetOverview.lowmonth' })}
                   value={this.state.ant / 10}
                   precision={2}
                 />

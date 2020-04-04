@@ -106,7 +106,7 @@ export default {
             {
               path: '/',
               // component: './Index',
-              redirect: '/index', // meta: { title: '首页' },
+              redirect: '/asset-overview', // meta: { title: '首页' },
             },
             {
               path: '/admin',

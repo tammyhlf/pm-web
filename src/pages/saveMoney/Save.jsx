@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import styles from './save.less';
+import { formatMessage, FormattedMessage } from 'umi/locale';
 import { InputNumber, Form, Input, message, Row, Col } from 'antd';
-import { saveStar, getStar, updateStar } from '../../services/star'
+import { saveStar, getStar } from '../../services/star'
 
 const { TextArea } = Input;
 
@@ -104,7 +105,7 @@ class Star extends React.Component {
           <div className={styles['center-header']}>
             <img src="/save/starts.png" alt="start" />
             <span></span>
-            <p>我的星愿</p>
+            <p><FormattedMessage id="asset.assetOverview.star" /></p>
           </div>
         </div>
         <Form>
@@ -113,7 +114,7 @@ class Star extends React.Component {
               rules: [{ required: true, message: '请输入你的星愿!' }],
             })(
               <TextArea
-                placeholder="请闭眼三秒，然后认真许下你的星愿"
+                placeholder={formatMessage({ id: 'asset.assetOverview.three' })}
                 rows={7}
                 allowClear
               />
@@ -121,7 +122,7 @@ class Star extends React.Component {
           </Form.Item>
           <Row>
             <Col span={6} offset={3}>
-              <Form.Item label="星愿目标">
+              <Form.Item label={formatMessage({ id: 'asset.assetOverview.sgoal' })}>
                 {getFieldDecorator('goal', {
                   rules: [{ required: true, message: '请输入你的目标!' }],
                 })(
@@ -130,7 +131,7 @@ class Star extends React.Component {
               </Form.Item>
             </Col>
             <Col span={6} offset={3}>
-              <Form.Item label="每月计划">
+              <Form.Item label={formatMessage({ id: 'asset.assetOverview.mplan' })}>
                 {getFieldDecorator('plan', {
                   rules: [{ required: true, message: '请输入你的计划!' }],
                 })(
@@ -142,8 +143,8 @@ class Star extends React.Component {
         </Form>
         <div className={styles.btn}>
           { this.state.starData ? 
-            <button onClick={this.handleSubmit}>许愿</button> :
-            <button onClick={this.handleUpdate}>修改心愿</button>
+            <button onClick={this.handleSubmit}><FormattedMessage id="asset.assetOverview.makestar" /></button> :
+            <button onClick={this.handleUpdate}><FormattedMessage id="asset.assetOverview.mstar" /></button>
           }
         </div>
       </div>

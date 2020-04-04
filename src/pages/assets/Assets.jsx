@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './assets.less';
 import { Icon, Modal, Form, Input, Select, Table, message } from 'antd';
+import { formatMessage, FormattedMessage } from 'umi/locale';
 import { addAssets, assetsInfo, totalAssets, deleteInfo } from '../../services/assets'
 import { totalDebet } from '../../services/debet'
 
@@ -175,10 +176,10 @@ class Asset extends React.Component {
   render() {
 
     const tabs = [
-      { index: 0, name: '现金', icon: 'pay-circle' },
-      { index: 1, name: '存款', icon: 'money-collect' },
-      { index: 2, name: '金融资产', icon: 'line-chart' },
-      { index: 3, name: '固定资产', icon: 'home' }
+      { index: 0, name: formatMessage({ id: 'asset.assetOverview.cash' }), icon: 'pay-circle' },
+      { index: 1, name: formatMessage({ id: 'asset.assetOverview.deposit' }), icon: 'money-collect' },
+      { index: 2, name: formatMessage({ id: 'asset.assetOverview.monetray' }), icon: 'line-chart' },
+      { index: 3, name: formatMessage({ id: 'asset.assetOverview.fixed' }), icon: 'home' }
     ];
     const depositColumns = [
       {
@@ -306,11 +307,11 @@ class Asset extends React.Component {
       <div>
         <div className={styles.page}>
           <div className={styles.total}>
-            <span>总资产</span>
+            <span><FormattedMessage id="asset.assetOverview.all" /></span>
             <strong>{this.state.total}</strong>
           </div>
           <div className={styles.output}>
-            <span>净资产</span>
+            <span><FormattedMessage id="asset.assetOverview.jing" /></span>
             <strong>{this.state.balance}</strong>
           </div>
         </div>
@@ -319,7 +320,7 @@ class Asset extends React.Component {
         </div>
         <div className={styles.content}>
           <div className={tab == 0 ? styles.active : styles['tab-content']}>
-            <p className={styles.balance}>总金额（元）<Icon type="eye" onClick={this.handleEye} /></p>
+            <p className={styles.balance}><FormattedMessage id="asset.assetOverview.total" /><Icon type="eye" onClick={this.handleEye} /></p>
             {this.state.eye ? 
               <p className={styles.cash}>{ this.state.cash }</p> :
               <p className={styles.cash}>****</p>}

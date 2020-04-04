@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { formatMessage, FormattedMessage } from 'umi/locale';
 import { Tabs, Icon, Row, Col, Modal, Form, Input, message } from 'antd';
 import style from './bookKeeping.less';
 import { book } from '../../services/book'
@@ -11,84 +12,84 @@ const payIcon = [     // react中的src是相对于根目录，/在react里是�
     img: '/pay-keeping/eat.png',
     img1: '/pay-keeping/eat1.png',
     isSelect: false,
-    kind: '餐饮'
+    kind: formatMessage({ id: 'asset.assetOverview.eat' })
   },
   {
     id: 2,
     img: '/pay-keeping/wear.png',
     img1: '/pay-keeping/wear1.png',
     isSelect: false,
-    kind: '服饰'
+    kind: formatMessage({ id: 'asset.assetOverview.wear' })
   },
   {
     id: 3,
     img: '/pay-keeping/house.png',
     img1: '/pay-keeping/house1.png',
     isSelect: false,
-    kind: '房租'
+    kind: formatMessage({ id: 'asset.assetOverview.house' })
   },
   {
     id: 4,
     img: '/pay-keeping/cosmetic.png',
     img1: '/pay-keeping/cosmetic1.png',
     isSelect: false,
-    kind: '化妆品'
+    kind: formatMessage({ id: 'asset.assetOverview.cosmetic' })
   },
   {
     id: 5,
     img: '/pay-keeping/traffic.png',
     img1: '/pay-keeping/traffic1.png',
     isSelect: false,
-    kind: '交通'
+    kind: formatMessage({ id: 'asset.assetOverview.traffic' })
   },
   {
     id: 6,
     img: '/pay-keeping/daily.png',
     img1: '/pay-keeping/daily1.png',
     isSelect: false,
-    kind: '日用品'
+    kind: formatMessage({ id: 'asset.assetOverview.daily' })
   },
   {
     id: 7,
     img: '/pay-keeping/book.png',
     img1: '/pay-keeping/book1.png',
     isSelect: false,
-    kind: '交通'
+    kind: formatMessage({ id: 'asset.assetOverview.book' })
   },
   {
     id: 8,
     img: '/pay-keeping/fruit.png',
     img1: '/pay-keeping/fruit1.png',
     isSelect: false,
-    kind: '水果'
+    kind: formatMessage({ id: 'asset.assetOverview.fruit' })
   },
   {
     id: 9,
     img: '/pay-keeping/entertainment.png',
     img1: '/pay-keeping/entertainment1.png',
     isSelect: false,
-    kind: '娱乐'
+    kind: formatMessage({ id: 'asset.assetOverview.entertainment' })
   },
   {
     id: 10,
     img: '/pay-keeping/digital.png',
     img1: '/pay-keeping/digital1.png',
     isSelect: false,
-    kind: '数码'
+    kind: formatMessage({ id: 'asset.assetOverview.digital' })
   },
   {
     id: 11,
     img: '/pay-keeping/phone.png',
     img1: '/pay-keeping/phone1.png',
     isSelect: false,
-    kind: '话费'
+    kind: formatMessage({ id: 'asset.assetOverview.phone' })
   },
   {
     id: 12,
     img: '/pay-keeping/other.png',
     img1: '/pay-keeping/other1.png',
     isSelect: false,
-    kind: '其他'
+    kind: formatMessage({ id: 'asset.assetOverview.other' })
   },
 ];
 const incomeIcon = [
@@ -97,35 +98,35 @@ const incomeIcon = [
     img: '/pay-keeping/wage.png',
     img1: '/pay-keeping/wage1.png',
     isSelect: false,
-    kind: '工资'
+    kind: formatMessage({ id: 'asset.assetOverview.wage' })
   },
   {
     id: 14,
     img: '/pay-keeping/part-time.png',
     img1: '/pay-keeping/part-time1.png',
     isSelect: false,
-    kind: '兼职'
+    kind: formatMessage({ id: 'asset.assetOverview.part-time' })
   },
   {
     id: 15,
     img: '/pay-keeping/investment.png',
     img1: '/pay-keeping/investment1.png',
     isSelect: false,
-    kind: '投资'
+    kind: formatMessage({ id: 'asset.assetOverview.investment' })
   },
   {
     id: 16,
     img: '/pay-keeping/bonus.png',
     img1: '/pay-keeping/bonus1.png',
     isSelect: false,
-    kind: '奖金'
+    kind: formatMessage({ id: 'asset.assetOverview.bonus' })
   },
   {
     id: 17,
     img: '/pay-keeping/other.png',
     img1: '/pay-keeping/other1.png',
     isSelect: false,
-    kind: '其他'
+    kind: formatMessage({ id: 'asset.assetOverview.other' })
   },
 ]
 
@@ -231,7 +232,7 @@ class BookKeepingForm extends Component {
               tab={
                 <span>
                   <Icon type="account-book" />
-                  支出
+                  <FormattedMessage id="asset.assetOverview.pay" />
                 </span>
               }
               key="1"
@@ -242,7 +243,7 @@ class BookKeepingForm extends Component {
               tab={
                 <span>
                   <Icon type="dollar" />
-                  收入
+                  <FormattedMessage id="asset.assetOverview.income" />
                 </span>
               }
               key="2"
@@ -252,34 +253,34 @@ class BookKeepingForm extends Component {
           </Tabs>
         </div>
         <Modal
-          title = "支出"
+          title = {formatMessage({ id: 'asset.assetOverview.pay' })}
           visible = { this.state.visible }
           onOk = { this.handleOk} 
           onCancel = { this.handleCancel}
           width={400}
         >
           <Form {...formItemLayout}>
-            <Form.Item label="类型：">
+            <Form.Item label={formatMessage({ id: 'asset.assetOverview.type' })}>
               <span>{ this.state.type }</span>
             </Form.Item>
-            <Form.Item label="金额：">
+            <Form.Item label={formatMessage({ id: 'asset.assetOverview.price' })}>
               {getFieldDecorator('price', {
                 rules: [
                   {
                     required: true,
                     type: 'number',
-                    message: '金额必填且为数字',
+                    message: formatMessage({ id: 'asset.assetOverview.number' }),
                     transform:(value)=> {return Number(value)} //ant design的坑，会把输入的内容转换成String
                   },
                 ],
-              })(<Input placeholder="请输入金额"/>)}
+              })(<Input placeholder={formatMessage({ id: 'asset.assetOverview.amount' })} />)}
             </Form.Item>
-            <Form.Item label="备注：">
+            <Form.Item label={formatMessage({ id: 'asset.assetOverview.remark' })}>
               {getFieldDecorator('remark', {
                 rules: [
                   {
                     max: 10,
-                    message: '请输入不超过十个字的备注',
+                    message: formatMessage({ id: 'asset.assetOverview.tmark' }),
                   },
                 ],
               })(<Input />)}

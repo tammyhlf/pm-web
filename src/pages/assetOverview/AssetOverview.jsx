@@ -8,9 +8,6 @@ import { bookInfo, deleteInfo } from '../../services/book'
 import { totalAssets } from '../../services/assets'
 import { totalDebet } from '../../services/debet'
 
-
-// import { overview } from '@/services/overview';
-
 const { TabPane } = Tabs;
 const { MonthPicker } = DatePicker;
 
@@ -109,28 +106,28 @@ class AssetOverview extends React.Component {
   render() {
     const columns = [
       {
-        title: '类型',
+        title: formatMessage({ id: 'asset.assetOverview.type' }),
         dataIndex: 'type',
         key: 'type',
       },
       {
-        title: '金额',
+        title: formatMessage({ id: 'asset.assetOverview.price' }),
         dataIndex: 'price',
         key: 'price',
       },
       {
-        title: '备注',
+        title: formatMessage({ id: 'asset.assetOverview.remark' }),
         dataIndex: 'remark',
         key: 'remark',
       },
       {
-        title: '日期',
+        title: formatMessage({ id: 'asset.assetOverview.date' }),
         dataIndex: 'date',
         key: 'date',
         render: date => <span>{ formatsDate(date) }</span>,
       },
       {
-        title: '操作',
+        title: formatMessage({ id: 'asset.assetOverview.action' }),
         key: 'action',
         dataIndex: '',
         render: (text, record) => 
@@ -142,14 +139,12 @@ class AssetOverview extends React.Component {
     return (
       <div>
         <div className={styles.page}>
-          {/* <Statistic title={formatMessage({ id: 'asset.assetOverview.total-assets' })} value={112893} precision={2} />
-          <Statistic title={formatMessage({ id: 'asset.assetOverview.yesterday-expenditure' })} value={112893} precision={2} /> */}
           <div className={styles.total}>
-            <span>总资产</span>
+            <span><FormattedMessage id="asset.assetOverview.total-assets" /></span>
             <strong>{this.state.total}</strong>
           </div>
           <div className={styles.output}>
-            <span>今日支出</span>
+            <span><FormattedMessage id="asset.assetOverview.expenditure" /></span>
             <strong>{this.state.yesPay || 0}</strong>
           </div>
         </div>

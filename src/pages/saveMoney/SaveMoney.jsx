@@ -1,5 +1,6 @@
 import React from 'react';
 import router from 'umi/router';
+import { formatMessage, FormattedMessage } from 'umi/locale';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import styles from './save.less';
 import { Empty, Button } from 'antd';
@@ -47,8 +48,10 @@ class SaveMoney extends React.Component {
               <span>{this.state.content}</span>
             </div>
             <div className={styles.show}>
-              目标：<span>{this.state.goal}</span>
-              已攒：<span>{this.state.plan}</span>
+              <FormattedMessage id="asset.assetOverview.goal" />:
+            <span>{this.state.goal}</span>
+              <FormattedMessage id="asset.assetOverview.plan" />
+              ：<span>{this.state.plan}</span>
               <span onClick={this.handleSkip}>></span>
             </div>
           </div>
@@ -60,11 +63,14 @@ class SaveMoney extends React.Component {
             }}
             description={
               <span>
-                暂无星愿！ <a href="#API">快来为为星愿攒钱吧</a>
+                <FormattedMessage id="asset.assetOverview.nostar" /> 
+                <a href="#API">
+                  <FormattedMessage id="asset.assetOverview.savestar" />
+                </a>
               </span>
             }
           >
-            <Button type="primary" onClick={this.handleSkip}>许个星愿</Button>
+            <Button type="primary" onClick={this.handleSkip}><FormattedMessage id="asset.assetOverview.wish" /></Button>
           </Empty>}
       </PageHeaderWrapper>
     )
